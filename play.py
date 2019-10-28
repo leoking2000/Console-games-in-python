@@ -1,5 +1,0 @@
-import test
-
-hello("jdhfjhdf")
-
-
