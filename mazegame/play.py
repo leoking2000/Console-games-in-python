@@ -1,5 +1,5 @@
 import os
-import maze 
+import mazegame.maze as maze
 
 rows = 37
 coloms = 57
