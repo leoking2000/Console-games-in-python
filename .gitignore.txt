@@ -1,2 +1,2 @@
-.idea
-snake/__pycache__
+.idea/
+snake/__pycache__/
