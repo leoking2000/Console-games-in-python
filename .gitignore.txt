@@ -1,0 +1,2 @@
+.idea
+snake/__pycache__
