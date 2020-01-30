@@ -7,7 +7,7 @@ black = (0, 0, 0)
 
 display_width = 600
 display_height = 600
-FPS = 10
+FPS = 5
 
 block_size = 10
 
@@ -19,37 +19,60 @@ clock = pygame.time.Clock() # game clock
 font = pygame.font.SysFont(None, 25)
 def message_to_display(msg, collor):
     text = font.render(msg, True, collor)
-    gameDisplay.blit(text, [display_width // 2, display_height // 2])
+    gameDisplay.blit(text, [display_width // 2 - 100, display_height // 2])
     pygame.display.update()
 
-gameRunning = True
-player = Cell(display_width // 2, display_height // 2, speed=block_size)
 
-while gameRunning:
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN :
-            if event.key == pygame.K_UP or event.key == pygame.K_w :
-                player.go_up()
-            elif event.key == pygame.K_DOWN or event.key == pygame.K_s :
-                player.go_down()
-            elif event.key == pygame.K_RIGHT or event.key == pygame.K_d :
-                player.go_right()
-            elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
-                player.go_left()
-        elif event.type == pygame.QUIT:
-            gameRunning = False
+def main():
+    snake = Snake(display_width // 2, display_height // 2, block_size, red,\
+                  display_width, display_height)
+    apple = Apple(block_size, green, display_width, display_height)
+    gameRunning = True
+    gameOver = False
 
-    if  player.x >= display_width or player.x < 0 or player.y >= display_height or player.y < 0 :
-        gameRunning = False
+    while gameRunning:
 
-    player.update()
-    gameDisplay.fill(black)
-    pygame.draw.rect(gameDisplay, red, [player.x, player.y, block_size, block_size])
-    pygame.display.update()
-    clock.tick(FPS)
+        while gameOver:
+            gameDisplay.fill(black)
+            message_to_display("GAME OVER\nPlay again(y/n)",green)
+            pygame.display.update()
 
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_y:
+                        gameOver = False
+                        snake.reset()
+                        apple.update()
+                    elif event.key == pygame.K_n:
+                        gameRunning = False
+                        gameOver = False
 
-message_to_display("Game Over!!!", red)
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN :
+                if event.key == pygame.K_UP or event.key == pygame.K_w :
+                    snake.go_up()
+                elif event.key == pygame.K_DOWN or event.key == pygame.K_s :
+                    snake.go_down()
+                elif event.key == pygame.K_RIGHT or event.key == pygame.K_d :
+                    snake.go_right()
+                elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
+                    snake.go_left()
+            elif event.type == pygame.QUIT:
+                gameRunning = False
 
-pygame.quit()
-quit()
+        if  snake.outside_the_boundaries(): gameOver = True
+        snake.update()
+        if snake.found_Apple(apple): snake.eat_aplle(apple)
+
+        gameDisplay.fill(black)
+        apple.draw(gameDisplay)
+        snake.draw(gameDisplay)
+        pygame.display.update()
+
+        clock.tick(FPS)
+
+    pygame.quit()
+    quit()
+
+if __name__ == "__main__":
+    main()
