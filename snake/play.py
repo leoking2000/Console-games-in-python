@@ -1,4 +1,4 @@
-from snake.gamelogic import *
+from snake.gamelogic import Snake, Apple
 import pygame
 
 green = (0,255,0)

@@ -103,13 +103,3 @@ class Snake():
         apple.update()
         self.snake_length +=1
 
-
-
-
-
-
-
-
-
-
-
