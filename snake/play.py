@@ -32,21 +32,6 @@ def main():
 
     while gameRunning:
 
-        while gameOver:
-            gameDisplay.fill(black)
-            message_to_display("GAME OVER\nPlay again(y/n)",green)
-            pygame.display.update()
-
-            for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_y:
-                        gameOver = False
-                        snake.reset()
-                        apple.update()
-                    elif event.key == pygame.K_n:
-                        gameRunning = False
-                        gameOver = False
-
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN :
                 if event.key == pygame.K_UP or event.key == pygame.K_w :
@@ -68,8 +53,25 @@ def main():
         apple.draw(gameDisplay)
         snake.draw(gameDisplay)
         pygame.display.update()
-
         clock.tick(FPS)
+
+        while gameOver:
+            gameDisplay.fill(black)
+            message_to_display("GAME OVER | Play again(y/n)",green)
+            pygame.display.update()
+
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_y:
+                        gameOver = False
+                        snake.reset()
+                        apple.update()
+                    elif event.key == pygame.K_n:
+                        gameRunning = False
+                        gameOver = False
+                if event.type == pygame.QUIT:
+                    gameRunning = False
+                    gameOver = False
 
     pygame.quit()
     quit()
