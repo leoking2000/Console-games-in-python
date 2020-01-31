@@ -58,11 +58,10 @@ class MovingCell(Cell):
 class Snake():
 
     snake_list = []
-    snake_length = 2
+    snake_length = 3
 
     def __init__(self, x, y, block_size, color, display_width, display_height):
         self.leadCell = MovingCell(x, y, block_size, color)
-        self.snake_list.append(self.leadCell)
         self.display_width = display_width
         self.display_height = display_height
 
@@ -77,7 +76,6 @@ class Snake():
     def draw(self, gameDisplay):
         for cell in self.snake_list:
             cell.draw(gameDisplay)
-
     def go_down(self):
         self.leadCell.go_down()
     def go_up(self):
@@ -89,7 +87,7 @@ class Snake():
     def reset(self):
         self.leadCell.x = self.display_width // 2
         self.leadCell.y = self.display_height // 2
-        self.snake_length = 2
+        self.snake_length = 3
         self.snake_list = []
         self.snake_list.append(self.leadCell)
 

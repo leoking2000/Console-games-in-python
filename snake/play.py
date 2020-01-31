@@ -7,9 +7,9 @@ black = (0, 0, 0)
 
 display_width = 600
 display_height = 600
-FPS = 10
+FPS = 5
 
-block_size = 10
+block_size = 20
 
 pygame.init()
 gameDisplay = pygame.display.set_mode((display_width, display_height))
