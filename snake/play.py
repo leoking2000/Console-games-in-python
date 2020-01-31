@@ -7,7 +7,7 @@ black = (0, 0, 0)
 
 display_width = 600
 display_height = 600
-FPS = 5
+FPS = 10
 
 block_size = 20
 
@@ -60,8 +60,8 @@ def main():
             elif event.type == pygame.QUIT:
                 gameRunning = False
 
-        if  snake.outside_the_boundaries(): gameOver = True
         snake.update()
+        if  snake.outside_the_boundaries() or snake.eat_itself(): gameOver = True
         if snake.found_Apple(apple): snake.eat_aplle(apple)
 
         gameDisplay.fill(black)

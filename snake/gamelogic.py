@@ -66,14 +66,15 @@ class Snake():
         self.display_height = display_height
 
     def update(self):
-        self.leadCell.update()
         x = self.leadCell.x
         y = self.leadCell.y
+        self.leadCell.update()
         self.snake_list.append(Cell(x, y, self.leadCell.block_size, self.leadCell.color))
         if len(self.snake_list) > self.snake_length:
             del self.snake_list[0]
 
     def draw(self, gameDisplay):
+        self.leadCell.draw(gameDisplay)
         for cell in self.snake_list:
             cell.draw(gameDisplay)
     def go_down(self):
@@ -89,12 +90,15 @@ class Snake():
         self.leadCell.y = self.display_height // 2
         self.snake_length = 3
         self.snake_list = []
-        self.snake_list.append(self.leadCell)
 
     def outside_the_boundaries(self):
        return self.leadCell.x >= self.display_width or self.leadCell.x < 0 \
            or self.leadCell.y >= self.display_height or self.leadCell.y < 0
-
+    def eat_itself(self):
+        for cell in self.snake_list:
+            if cell.x == self.leadCell.x and cell.y == self.leadCell.y:
+                return True
+        return False
     def found_Apple(self, apple):
         return apple.x == self.leadCell.x and apple.y == self.leadCell.y
     def eat_aplle(self, apple):
